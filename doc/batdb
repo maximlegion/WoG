@@ -1,0 +1,15 @@
+@ECHO ON
+@REM Set environment variables for PostgreSQL
+@SET PATH="%CD%\bin";%PATH%
+@SET PGDATA=%CD%\data
+@SET PGDATABASE=postgres
+@SET PGUSER=postgres
+@SET PGPORT=5432
+@REM Create new DB with Russian encoding only at first run
+@rem %CD%\bin\initdb -U postgres -A trust -E UTF8 --locale=russian_russia
+@REM Create new DB with English encoding only at first run
+%CD%\bin\initdb -U postgres -A trust -E UTF8 --locale=american_usa
+@%CD%\bin\pg_ctl -D %CD%/data -l logfile start
+@ECHO Press Enter to stop server
+@pause
+@%CD%\bin\pg_ctl -D %CD%/data stop
